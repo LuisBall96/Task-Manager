@@ -7,6 +7,7 @@ import { join } from 'path';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -16,19 +17,26 @@ import { UsersModule } from './users/users.module';
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
-    TypeOrmModule.forRoot({
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
       type: 'mssql',
-      host: 'localhost',
-      port: 1433,
-      username: 'luis',
-      password: '123456',
-      database: 'Task',
+      host: configService.get('DB_HOST'),
+      port: +configService.get('DB_PORT'),
+      username: configService.get('DB_USER'),
+      password: configService.get('DB_PASSWORD'),
+      database: configService.get('DB_NAME'),
       synchronize: true,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       options: {
-        trustServerCertificate: true,
-      },
+        trustServerCertificate: true
+      }
     }),
+    inject: [ConfigService],
+  }),
     UsersModule,
   ],
   controllers: [AppController],
