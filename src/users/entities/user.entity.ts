@@ -5,11 +5,11 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity({ name: 'user'})
 export class User {
 
-  @PrimaryGeneratedColumn()
-  @Field(() => ID)
+  @PrimaryGeneratedColumn('uuid')
+  @Field(() => String)
   id: string;
 
   @Column()
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   userName: string;
 }
