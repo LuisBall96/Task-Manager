@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,17 +10,16 @@ export class UsersService {
 
   constructor(@InjectRepository(User) private userRepository : Repository<User>) {}
 
-  async create(createUserInput: CreateUserInput) {
+  async create(createUserInput: CreateUserInput) : Promise <User> {
 
     const findUser = await this.userRepository.findOne({
       where : {
-        userName: createUserInput.userName
+        email: createUserInput.email
       }
     });
 
     if (findUser){
-      return new HttpException('User already registrered',
-      HttpStatus.CONFLICT)
+      throw new ConflictException (`User with email ${findUser.email} already registrered`)
     }
 
     const createUser = await this.userRepository.create(createUserInput)
