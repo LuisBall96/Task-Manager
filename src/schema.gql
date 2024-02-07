@@ -15,15 +15,33 @@ enum BlockLocation {
   User
 }
 
+type Task {
+  id: String!
+  taskName: String!
+  description: String!
+  taskStatus: TaskStatus!
+}
+
+enum TaskStatus {
+  Todo
+  InProgress
+  Completed
+}
+
 type Query {
   users: [User!]!
   user(id: String!): User!
+  tasks: [Task!]!
+  task(id: Int!): Task!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: String!): User!
+  createTask(createTaskInput: CreateTaskInput!): Task!
+  updateTask(updateTaskInput: UpdateTaskInput!): Task!
+  removeTask(id: String!): Task!
 }
 
 input CreateUserInput {
@@ -39,4 +57,17 @@ input UpdateUserInput {
   email: String
   status: BlockLocation = User
   id: ID!
+}
+
+input CreateTaskInput {
+  taskName: String!
+  description: String!
+  taskStatus: TaskStatus = Todo
+}
+
+input UpdateTaskInput {
+  taskName: String
+  description: String
+  taskStatus: TaskStatus = Todo
+  id: String!
 }
