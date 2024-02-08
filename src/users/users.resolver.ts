@@ -23,10 +23,10 @@ export class UsersResolver {
     return this.usersService.findOne(id);
   }
 
-  @Mutation(() => User)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput): Promise <User> {
-    return this.usersService.update(updateUserInput.id, updateUserInput);
-  }
+  // @Mutation(() => User)
+  // updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput): Promise <User> {
+  //   return this.usersService.update(updateUserInput.id, updateUserInput);
+  // }
 
   @Mutation(() => User)
   removeUser(@Args('id', { type: () => String }) id: string): Promise <User> {

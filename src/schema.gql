@@ -3,9 +3,8 @@
 # ------------------------------------------------------
 
 type User {
-  id: String!
-  firstName: String!
-  lastName: String
+  id: ID!
+  fullName: String!
   email: String!
   status: BlockLocation!
   roles: [String!]!

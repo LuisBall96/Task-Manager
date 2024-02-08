@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { UserStatus } from '../enum/user-types.enum';
 
@@ -7,16 +7,12 @@ import { UserStatus } from '../enum/user-types.enum';
 export class User {
 
   @PrimaryGeneratedColumn('uuid')
-  @Field(() => String)
+  @Field(() => ID)
   id: string;
 
   @Column()
   @Field(() => String)
-  firstName: string;
-
-  @Column({ nullable: true })
-  @Field(() => String, { nullable: true })
-  lastName: string;
+  fullName: string;
 
   @Column({ unique: true })
   @Field(() => String)
