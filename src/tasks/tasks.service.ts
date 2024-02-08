@@ -8,7 +8,7 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class TasksService {
 
-  constructor(@InjectRepository(Task) private taskRepository : Repository<Task>) {}
+  constructor(@InjectRepository(Task) private readonly taskRepository : Repository<Task>) {}
 
 
   async create(createTaskInput: CreateTaskInput): Promise <Task> {
@@ -21,7 +21,7 @@ export class TasksService {
 
   }
 
-  findAll() {
+  findAll(): Promise <Task []> {
     return this.taskRepository.find()
   }
 

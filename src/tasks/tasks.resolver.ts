@@ -14,22 +14,22 @@ export class TasksResolver {
   }
 
   @Query(() => [Task], { name: 'tasks' })
-  findAll() {
+  findAll() : Promise <Task[]> {
     return this.tasksService.findAll();
   }
 
   @Query(() => Task, { name: 'task' })
-  findOne(@Args('id', { type: () => Int }) id: string) {
+  findOne(@Args('id', { type: () => Int }) id: string): Promise <Task> {
     return this.tasksService.findOne(id);
   }
 
   @Mutation(() => Task)
-  updateTask(@Args('updateTaskInput') updateTaskInput: UpdateTaskInput) {
+  updateTask(@Args('updateTaskInput') updateTaskInput: UpdateTaskInput): Promise <Task> {
     return this.tasksService.update(updateTaskInput.id, updateTaskInput);
   }
 
   @Mutation(() => Task)
-  removeTask(@Args('id', { type: () => String }) id: string) {
+  removeTask(@Args('id', { type: () => String }) id: string): Promise <Task> {
     return this.tasksService.remove(id);
   }
 }
