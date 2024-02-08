@@ -22,8 +22,21 @@ export class User {
   @Field(() => String)
   email: string;
 
+  @Column()
+  password: string;
+
   @Column({ default: UserStatus.User})
   @Field(() => UserStatus)
   status: UserStatus
+
+  @Column('simple-array')
+  @Field(() => [String])
+  roles: string []
+
+  @Column({ default: true })
+  @Field(() => Boolean)
+  isActive: boolean;
+
+
 
 }

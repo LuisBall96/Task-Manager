@@ -1,5 +1,5 @@
 import { InputType, Int, Field, ID } from '@nestjs/graphql';
-import { IsEmail, IsString, IsUUID } from 'class-validator';
+import { IsArray, IsEmail, IsString, IsUUID } from 'class-validator';
 import { UserStatus } from '../enum/user-types.enum';
 import { User } from '../entities/user.entity';
 
@@ -18,8 +18,22 @@ export class CreateUserInput {
   @IsString()
   @IsEmail()
   email: string;
+  
+  @Field(() => String)
+  @IsString()
+  password: string
 
   @Field(() => UserStatus, { defaultValue: UserStatus.User })
   @IsString()
   status: UserStatus
+
+  @Field(() => [String])
+  @IsArray()
+  @IsString()
+  roles: string []
+
+  @Field(() => Boolean)
+  @IsString()
+  isActive: boolean
+
 }

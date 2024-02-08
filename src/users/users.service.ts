@@ -64,6 +64,8 @@ export class UsersService {
 
     const user = await this.userRepository.update(updateUserInput.id, updateUserInput)
 
+    const userUpdated = await this.userRepository.save(findUser)
+
     return findUser;
     
   }

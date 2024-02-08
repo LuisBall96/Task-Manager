@@ -42,6 +42,8 @@ export class TasksService {
 
     const updatingTask = await this.taskRepository.update(updateTaskInput.id, updateTaskInput)
 
+    const taskUpdated = await this.taskRepository.save(findingTask)
+
     return findingTask
 
   }

@@ -8,6 +8,8 @@ type User {
   lastName: String
   email: String!
   status: BlockLocation!
+  roles: [String!]!
+  isActive: Boolean!
 }
 
 enum BlockLocation {
@@ -48,14 +50,20 @@ input CreateUserInput {
   firstName: String
   lastName: String
   email: String!
+  password: String!
   status: BlockLocation! = User
+  roles: [String!]!
+  isActive: Boolean!
 }
 
 input UpdateUserInput {
   firstName: String
   lastName: String
   email: String
+  password: String
   status: BlockLocation = User
+  roles: [String!]
+  isActive: Boolean
   id: ID!
 }
 
