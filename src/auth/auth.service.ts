@@ -30,7 +30,7 @@ export class AuthService {
 
       if ( !bcrypt.compareSync( password ,user.password )){
          throw new BadGatewayException('Email / Password do not match ')
-      }
+      }  
 
       const token = 'ABC123';
 
