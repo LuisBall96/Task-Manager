@@ -1,9 +1,9 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 import { SignupInput } from '../auth/dto/inputs/signup.input';
 
 @Injectable()
@@ -13,22 +13,24 @@ export class UsersService {
 
   async create(signupInput: SignupInput) : Promise <User> {
 
-    const findUser = await this.userRepository.findOne({
-      where : {
-        email: signupInput.email
+      const findUser = await this.userRepository.findOne({
+        where : {
+          email: signupInput.email
+        }
+      });
+  
+      if (findUser){
+        throw new ConflictException (`User with email ${findUser.email} already registrered`)
       }
-    });
-
-    if (findUser){
-      throw new ConflictException (`User with email ${findUser.email} already registrered`)
-    }
-
-    const createUser = await this.userRepository.create(signupInput)
-
-    const newUser = await this.userRepository.save(createUser)
-
-
-    return newUser;
+  
+      const createUser = await this.userRepository.create({
+        ...signupInput, password: bcrypt.hashSync( signupInput.password, 10 )
+      })
+  
+      const newUser = await this.userRepository.save(createUser)
+  
+  
+      return newUser;
   }
 
   findAll() {

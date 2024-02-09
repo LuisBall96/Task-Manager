@@ -9,7 +9,6 @@ import { AuthResponse } from './types/auth-response.type';
 export class AuthService {
 
    constructor(
-
     private readonly userService: UsersService
    ) {}
 
