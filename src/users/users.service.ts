@@ -53,6 +53,14 @@ export class UsersService {
 
   }
 
+  async findOneByEmail(email: string): Promise <User> {
+    
+    const findUser = await this.userRepository.findOneByOrFail({email})
+    
+    return findUser
+
+  }
+
   async update(id: string, updateUserInput: UpdateUserInput): Promise <User> {
 
     const findUser = await this.userRepository.findOne({

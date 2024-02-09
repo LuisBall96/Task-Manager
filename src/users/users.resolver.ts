@@ -22,6 +22,11 @@ export class UsersResolver {
     return this.usersService.findOne(id);
   }
 
+  @Query(() => User, { name: 'user' })
+  findOneByEmail(@Args('email', { type: () => String }) email: string): Promise <User> {
+    return this.usersService.findOneByEmail(email);
+  }
+
   // @Mutation(() => User)
   // updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput): Promise <User> {
   //   return this.usersService.update(updateUserInput.id, updateUserInput);

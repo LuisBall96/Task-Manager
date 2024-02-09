@@ -36,7 +36,7 @@ type AuthResponse {
 
 type Query {
   users: [User!]!
-  user(id: String!): User!
+  user(email: String!): User!
   tasks: [Task!]!
   task(id: Int!): Task!
 }
@@ -48,6 +48,7 @@ type Mutation {
   updateTask(updateTaskInput: UpdateTaskInput!): Task!
   removeTask(id: String!): Task!
   signup(signupInput: SignupInput!): AuthResponse!
+  login(loginInput: LoginInput!): AuthResponse!
 }
 
 input SignupInput {
@@ -68,4 +69,9 @@ input UpdateTaskInput {
   description: String
   taskStatus: TaskStatus = Todo
   id: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
 }
