@@ -29,6 +29,11 @@ enum TaskStatus {
   Completed
 }
 
+type AuthResponse {
+  token: String!
+  user: User!
+}
+
 type Query {
   users: [User!]!
   user(id: String!): User!
@@ -37,33 +42,19 @@ type Query {
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
+  createUser(signupInput: SignupInput!): User!
   removeUser(id: String!): User!
   createTask(createTaskInput: CreateTaskInput!): Task!
   updateTask(updateTaskInput: UpdateTaskInput!): Task!
   removeTask(id: String!): Task!
+  signup(signupInput: SignupInput!): AuthResponse!
 }
 
-input CreateUserInput {
-  firstName: String
-  lastName: String
+input SignupInput {
   email: String!
+  fullName: String!
   password: String!
-  status: BlockLocation! = User
-  roles: [String!]!
-  isActive: Boolean!
-}
-
-input UpdateUserInput {
-  firstName: String
-  lastName: String
-  email: String
-  password: String
-  status: BlockLocation = User
-  roles: [String!]
-  isActive: Boolean
-  id: ID!
+  roles: [String!] = ["user"]
 }
 
 input CreateTaskInput {

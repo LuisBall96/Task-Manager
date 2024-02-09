@@ -4,17 +4,18 @@ import { UpdateUserInput } from './dto/update-user.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import { SignupInput } from '../auth/dto/inputs/signup.input';
 
 @Injectable()
 export class UsersService {
 
   constructor(@InjectRepository(User) private readonly userRepository : Repository<User>) {}
 
-  async create(createUserInput: CreateUserInput) : Promise <User> {
+  async create(signupInput: SignupInput) : Promise <User> {
 
     const findUser = await this.userRepository.findOne({
       where : {
-        email: createUserInput.email
+        email: signupInput.email
       }
     });
 
@@ -22,7 +23,7 @@ export class UsersService {
       throw new ConflictException (`User with email ${findUser.email} already registrered`)
     }
 
-    const createUser = await this.userRepository.create(createUserInput)
+    const createUser = await this.userRepository.create(signupInput)
 
     const newUser = await this.userRepository.save(createUser)
 
