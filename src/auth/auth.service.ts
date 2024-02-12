@@ -1,10 +1,11 @@
-import { BadGatewayException, Injectable } from '@nestjs/common';
+import { BadGatewayException, Injectable, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
 import { SignupInput } from './dto/inputs/signup.input';
 import { AuthResponse } from './types/auth-response.type';
 import { LoginInput } from './dto/inputs/login.input';
 import { JwtService } from '@nestjs/jwt';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +23,7 @@ export class AuthService {
 
     const user = await this.userService.create( signupInput );
 
-    const token = this.jwtService.sign({ id: user.id  })
+    const token = this.getJwtToken(user.id)
     return { token, user }
 
    } 
@@ -37,14 +38,31 @@ export class AuthService {
          throw new BadGatewayException('Email / Password do not match ')
       }  
 
-      const token = this.jwtService.sign({ id: user.id  })
+      const token = this.getJwtToken(user.id)
 
       return { token, user }
 
    }
 
+   async validateUser ( id: string ) : Promise <User>{
 
+      const user = await this.userService.findOne(id);
 
+      if (!user.isActive)
+         throw new UnauthorizedException(`The user is inactive `)
 
+      delete user.password
+
+      return user;
+      
+   }
+
+   revalidateToken( user: User ) : AuthResponse {
+
+      const token = this.getJwtToken(user.id)
+
+      return { token, user }
+
+   }
 
 }
