@@ -5,6 +5,7 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { SignupInput } from '../auth/dto/inputs/signup.input';
+import { UserRoles } from '../auth/enum/user-types.enum';
 
 @Injectable()
 export class UsersService {
@@ -33,7 +34,7 @@ export class UsersService {
       return newUser;
   }
 
-  findAll() {
+  findAll(): Promise<User[]> {
     return this.userRepository.find()
   }
 

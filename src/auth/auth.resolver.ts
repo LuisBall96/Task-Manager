@@ -7,7 +7,7 @@ import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { CurrentUser } from './decorator/current-user.decorator';
 import { User } from '../users/entities/user.entity';
-import { UserStatus } from './enum/user-types.enum';
+import { UserRoles } from './enum/user-types.enum';
 
 @Resolver()
 export class AuthResolver {
@@ -31,7 +31,7 @@ export class AuthResolver {
   @Query(() => AuthResponse, { name: 'revalite' } )
   @UseGuards( JwtAuthGuard )
   revaliteToken(
-    @CurrentUser([ UserStatus.admin ]) user: User
+    @CurrentUser([ UserRoles.admin ]) user: User
   ): AuthResponse{
     return this.authService.revalidateToken( user )
 
