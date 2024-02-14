@@ -34,8 +34,15 @@ export class UsersService {
       return newUser;
   }
 
-  findAll(): Promise<User[]> {
-    return this.userRepository.find()
+  async findAll(roles: UserRoles[]): Promise<User[]> {
+
+    if (roles.length === 0) return this.userRepository.find() 
+
+    return this.userRepository.createQueryBuilder()
+    .andWhere('ARRAY[roles] && ARRAY[:...roles]')
+    .setParameter('roles', roles)
+    .getMany()
+
   }
 
   async findOne(id: string): Promise <User> {

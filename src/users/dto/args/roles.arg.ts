@@ -8,5 +8,5 @@ export class UserRolesArgs {
 
     @Field(() => [UserRoles], { nullable: true })
     @IsArray()
-    status: UserRoles[] = []
+    roles: UserRoles[] = []
 }

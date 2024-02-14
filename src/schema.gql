@@ -29,7 +29,7 @@ type AuthResponse {
 }
 
 type Query {
-  users(status: [UserRoles!] = []): [User!]!
+  users(roles: [UserRoles!] = []): [User!]!
   user(email: String!): User!
   tasks: [Task!]!
   task(id: Int!): Task!
