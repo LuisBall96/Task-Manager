@@ -1,6 +1,6 @@
 import { ExecutionContext, ForbiddenException, InternalServerErrorException, createParamDecorator } from "@nestjs/common";
 import { GqlExecutionContext } from "@nestjs/graphql";
-import { UserStatus } from "../../users/enum/user-types.enum";
+import { UserStatus } from "../enum/user-types.enum";
 import { User } from "../../users/entities/user.entity";
 
 
@@ -22,6 +22,4 @@ export const CurrentUser =  createParamDecorator((roles: UserStatus[] = [], cont
     }
 
     throw new ForbiddenException( `User ${ user.fullName } need a valid role [ ${ roles } ]` )
-
-    return user;
-})
+});

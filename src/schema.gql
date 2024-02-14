@@ -6,14 +6,8 @@ type User {
   id: ID!
   fullName: String!
   email: String!
-  status: BlockLocation!
   roles: [String!]!
   isActive: Boolean!
-}
-
-enum BlockLocation {
-  Admin
-  User
 }
 
 type Task {
