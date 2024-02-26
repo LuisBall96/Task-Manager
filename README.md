@@ -1,16 +1,23 @@
-TaskManager
-Este proyecto es un gestor de tareas que utiliza NestJs para la gestión y estructura del servidor. Se emplea TypeOrm para el mapeo de la base de datos (en este caso, postgresSQL) y GraphQL para administrar las consultas y la estructura de la API.
 
-Tecnologías Utilizadas
-NestJs: Framework de Node.js para construir aplicaciones escalables y eficientes en el servidor.
-TypeOrm: ORM (Object-Relational Mapping) utilizado para mapear objetos TypeScript a entidades de base de datos.
-GraphQL: Lenguaje de consulta y entorno de ejecución para APIs, proporcionando una forma eficiente y flexible de interactuar con los datos.
-Configuración del Proyecto
-Clona el repositorio: git clone [URL del repositorio]
-Instala las dependencias: npm install
-Configura la base de datos en el archivo ormconfig.json.
-Ejecuta el servidor: npm run start
-Modificaciones Futuras
-Esta sección se actualizará continuamente a medida que el proyecto evolucione. ¡Mantente atento para obtener las últimas novedades y mejoras!
+# Task Manager
 
-Este README está sujeto a modificaciones a medida que se realicen actualizaciones en el proyecto.
+This project is a task manager that uses NestJs for the management and structure of the server. TypeOrm is used for database mapping (in this case, postgresSQL) and GraphQL to manage the queries and API structure.
+
+## Technologies used
+
+- NestJs: Node.js framework for building scalable and efficient server-side applications.
+
+- TypeOrm: ORM (Object-Relational Mapping) used to map TypeScript objects to database entities.
+
+- GraphQL: Query language and runtime environment for APIs, providing an efficient and flexible way to interact with data.
+
+## Project Configuration
+
+    1. Clone the repository: git clone [repository URL]
+    2. Install the dependencies: npm install
+    3. Configure the database in the ormconfig.json file.
+    4. Run the server: npm run start
+
+
+
+#### This section will be continually updated...
